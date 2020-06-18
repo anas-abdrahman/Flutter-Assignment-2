@@ -1,5 +1,7 @@
+import 'package:assignment_2/firebase/auth.dart';
 import 'package:assignment_2/utils/app_route.dart';
 import 'package:flutter/material.dart';
+import '../utils/app_route.dart';
 import '../widget/app_icon.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -10,7 +12,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void initState() {
-    splashScreen();
+    checkUser();
     super.initState();
   }
 
@@ -26,10 +28,25 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 
-  splashScreen() async {
-    Future.delayed(Duration(seconds: 2)).whenComplete(() {
-      AppRoute.loginScreen(context);
+  checkUser() async {
+
+    Auth.getCurrentUser().then((user) {
+
+      Future.delayed(Duration(seconds: 3)).then((_){
+        
+          if (user != null) 
+          {
+
+            AppRoute.homeScreen(context);
+
+          }else{
+
+            AppRoute.loginScreen(context);
+
+          }
+        
+      });
+
     });
   }
-
 }

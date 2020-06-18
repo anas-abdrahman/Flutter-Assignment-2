@@ -1,4 +1,4 @@
-package com.example.day_2
+package com.mynasmah.training
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity

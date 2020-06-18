@@ -1,32 +1,34 @@
 import 'package:assignment_2/bloc/bloc_result.dart';
-import 'package:assignment_2/bloc/login_bloc.dart';
+import 'package:assignment_2/bloc/register_bloc.dart';
 import 'package:assignment_2/model/user.dart';
 import 'package:assignment_2/utils/app_dialog.dart';
 import 'package:assignment_2/utils/app_route.dart';
 import 'package:assignment_2/utils/validate.dart';
 import 'package:assignment_2/widget/app_loader.dart';
 import 'package:flutter/material.dart';
+import '../utils/app_route.dart';
 import '../widget/app_icon.dart';
 import '../widget/app_button.dart';
 import '../widget/app_text_field.dart';
 
-class LoginScreen extends StatefulWidget {
+class RegisterScreen extends StatefulWidget {
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _RegisterScreenState createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
-
+class _RegisterScreenState extends State<RegisterScreen> {
+  TextEditingController _nameController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
+  TextEditingController _phoneController = TextEditingController();
   TextEditingController _passController = TextEditingController();
 
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  LoginBloc _loginBloc = LoginBloc();
+  RegisterBloc _registerBloc = RegisterBloc();
   bool _showLoading = false;
 
   @override
   void initState() {
-    _loginBloc.registrationStream.listen((blocResult) {
+    _registerBloc.registrationStream.listen((blocResult) {
       if (blocResult == null || blocResult.state == null) return;
 
       switch (blocResult.state) {
@@ -36,7 +38,15 @@ class _LoginScreenState extends State<LoginScreen> {
           });
           break;
         case BlocResult.SUCCESS:
-          AppRoute.homeScreen(context);
+          setState(() {
+            _showLoading = false;
+          });
+          AppDialog.success(
+            context,
+            'Success!',
+            'Register Successfully',
+            () => AppRoute.homeScreen(context),
+          );
           break;
         case BlocResult.ERROR:
           setState(() {
@@ -75,13 +85,21 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     Text(
-                      'Sign in',
+                      'Register',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
                       ),
                     ),
                     SizedBox(height: 50),
+                    AppTextFormField(
+                      hintText: 'Name',
+                      icon: Icon(Icons.lock),
+                      controller: _nameController,
+                      isBorder: true,
+                      validator: Validator.validateName,
+                    ),
+                    SizedBox(height: 10),
                     AppTextFormField(
                       hintText: 'Email Address',
                       icon: Icon(Icons.email),
@@ -91,40 +109,38 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     SizedBox(height: 10),
                     AppTextFormField(
+                      hintText: 'Phone',
+                      icon: Icon(Icons.lock),
+                      controller: _phoneController,
+                      isBorder: true,
+                    ),
+                    SizedBox(height: 10),
+                    AppTextFormField(
                       hintText: 'Password',
                       icon: Icon(Icons.lock),
                       controller: _passController,
                       isBorder: true,
                       isPassword: true,
-                      validator: Validator.validateEmptyPassword,
+                      validator: Validator.validatePassword,
                     ),
                     SizedBox(height: 40),
                     AppButton(
-                      text: 'Login',
-                      onPressed: () async {
-
+                      text: 'Register',
+                      onPressed: () {
                         final FormState form = _formKey.currentState;
 
                         if (form.validate()) {
-
+                          final name = _nameController.text;
                           final email = _emailController.text;
-                          final password = _passController.text;
+                          final phone = _phoneController.text;
+                          final pass = _passController.text;
 
-                          _loginBloc.login(
-                            user: User(email: email),
-                            password: password,
+                          _registerBloc.register(
+                            user: User(name: name, email: email, phone: phone),
+                            password: pass,
                           );
-
                         }
-
                       },
-                    ),
-                    SizedBox(height: 30),
-                    Text('Forgot password?'),
-                    SizedBox(height: 60),
-                    InkWell(
-                      child: Text('Create an Account'),
-                      onTap: () => AppRoute.registerScreen(context),
                     ),
                   ],
                 ),
