@@ -94,7 +94,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     SizedBox(height: 50),
                     AppTextFormField(
                       hintText: 'Name',
-                      icon: Icon(Icons.lock),
+                      icon: Icon(Icons.account_circle),
                       controller: _nameController,
                       isBorder: true,
                       validator: Validator.validateName,
@@ -110,7 +110,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     SizedBox(height: 10),
                     AppTextFormField(
                       hintText: 'Phone',
-                      icon: Icon(Icons.lock),
+                      icon: Icon(Icons.phone_android),
                       controller: _phoneController,
                       isBorder: true,
                     ),
