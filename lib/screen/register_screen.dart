@@ -7,6 +7,7 @@ import 'package:assignment_2/utils/validate.dart';
 import 'package:assignment_2/widget/app_loader.dart';
 import 'package:flutter/material.dart';
 import '../utils/app_route.dart';
+import '../utils/validate.dart';
 import '../widget/app_icon.dart';
 import '../widget/app_button.dart';
 import '../widget/app_text_field.dart';
@@ -17,10 +18,16 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+
   TextEditingController _nameController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
   TextEditingController _phoneController = TextEditingController();
   TextEditingController _passController = TextEditingController();
+
+  FocusNode _nameFocus = FocusNode();
+  FocusNode _emailFocus = FocusNode();
+  FocusNode _phoneFocus = FocusNode();
+  FocusNode _passFocus = FocusNode();
 
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   RegisterBloc _registerBloc = RegisterBloc();
@@ -98,6 +105,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       controller: _nameController,
                       isBorder: true,
                       validator: Validator.validateName,
+                      focusNode: _nameFocus,
                     ),
                     SizedBox(height: 10),
                     AppTextFormField(
@@ -106,6 +114,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       controller: _emailController,
                       isBorder: true,
                       validator: Validator.validateEmail,
+                      focusNode: _emailFocus,
                     ),
                     SizedBox(height: 10),
                     AppTextFormField(
@@ -113,6 +122,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       icon: Icon(Icons.phone_android),
                       controller: _phoneController,
                       isBorder: true,
+                      validator: Validator.validatePhone,
+                      focusNode: _phoneFocus,
                     ),
                     SizedBox(height: 10),
                     AppTextFormField(
@@ -122,23 +133,32 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       isBorder: true,
                       isPassword: true,
                       validator: Validator.validatePassword,
+                      focusNode: _passFocus,
                     ),
                     SizedBox(height: 40),
                     AppButton(
                       text: 'Register',
                       onPressed: () {
+
+                        _nameFocus.unfocus();
+                        _emailFocus.unfocus();
+                        _phoneFocus.unfocus();
+                        _passFocus.unfocus();
+                        
                         final FormState form = _formKey.currentState;
 
                         if (form.validate()) {
-                          final name = _nameController.text;
+
+                          final name  = _nameController.text;
                           final email = _emailController.text;
                           final phone = _phoneController.text;
-                          final pass = _passController.text;
+                          final pass  = _passController.text;
 
                           _registerBloc.register(
                             user: User(name: name, email: email, phone: phone),
                             password: pass,
                           );
+
                         }
                       },
                     ),

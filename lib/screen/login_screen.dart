@@ -17,6 +17,9 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
 
+  FocusNode _emailFocus = FocusNode();
+  FocusNode _passFocus = FocusNode();
+
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passController = TextEditingController();
 
@@ -88,6 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       controller: _emailController,
                       isBorder: true,
                       validator: Validator.validateEmail,
+                      focusNode: _emailFocus,
                     ),
                     SizedBox(height: 10),
                     AppTextFormField(
@@ -96,12 +100,16 @@ class _LoginScreenState extends State<LoginScreen> {
                       controller: _passController,
                       isBorder: true,
                       isPassword: true,
-                      validator: Validator.validateEmptyPassword,
+                      validator: Validator.validatePassword,
+                      focusNode: _passFocus,
                     ),
                     SizedBox(height: 40),
                     AppButton(
                       text: 'Login',
                       onPressed: () async {
+
+                        _emailFocus.unfocus();
+                        _passFocus.unfocus();
 
                         final FormState form = _formKey.currentState;
 

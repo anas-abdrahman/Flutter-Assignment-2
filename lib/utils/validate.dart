@@ -35,10 +35,10 @@ class Validator {
       return null;
   }
 
-  static String validateEmptyPassword(String value) {
+  static String validatePhone(String value) {
     
     if (value.isEmpty)
-      return 'Password cannot be blank';
+      return 'Please enter a phone';
     else
       return null;
   }

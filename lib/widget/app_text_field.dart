@@ -53,6 +53,8 @@ class AppTextFormField extends StatelessWidget {
   final String error;
   final Function(String) validator;
   final bool isPassword;
+  final FocusNode focusNode;
+  final ValueChanged<String> onSubmitted;
 
   const AppTextFormField({
     this.hintText, 
@@ -61,7 +63,9 @@ class AppTextFormField extends StatelessWidget {
     this.isBorder = false,
     this.error,
     this.validator,
-    this.isPassword = false
+    this.isPassword = false,
+    this.focusNode,
+    this.onSubmitted
   });
 
   @override
@@ -70,6 +74,8 @@ class AppTextFormField extends StatelessWidget {
       controller: controller,
       validator: this.validator,
       obscureText: isPassword,
+      focusNode: this.focusNode,
+      onFieldSubmitted: this.onSubmitted,
       decoration: InputDecoration(
         hintStyle: TextStyle(
           color: Colors.grey[500],
