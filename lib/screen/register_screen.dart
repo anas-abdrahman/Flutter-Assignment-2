@@ -3,11 +3,10 @@ import 'package:assignment_2/bloc/register_bloc.dart';
 import 'package:assignment_2/model/user.dart';
 import 'package:assignment_2/utils/app_dialog.dart';
 import 'package:assignment_2/utils/app_route.dart';
-import 'package:assignment_2/utils/validate.dart';
+import 'package:assignment_2/utils/app_validate.dart';
 import 'package:assignment_2/widget/app_loader.dart';
 import 'package:flutter/material.dart';
 import '../utils/app_route.dart';
-import '../utils/validate.dart';
 import '../widget/app_icon.dart';
 import '../widget/app_button.dart';
 import '../widget/app_text_field.dart';
@@ -104,7 +103,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       icon: Icon(Icons.account_circle),
                       controller: _nameController,
                       isBorder: true,
-                      validator: Validator.validateName,
+                      validator: AppValidator.validateName,
                       focusNode: _nameFocus,
                     ),
                     SizedBox(height: 10),
@@ -113,7 +112,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       icon: Icon(Icons.email),
                       controller: _emailController,
                       isBorder: true,
-                      validator: Validator.validateEmail,
+                      validator: AppValidator.validateEmail,
                       focusNode: _emailFocus,
                     ),
                     SizedBox(height: 10),
@@ -122,7 +121,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       icon: Icon(Icons.phone_android),
                       controller: _phoneController,
                       isBorder: true,
-                      validator: Validator.validatePhone,
+                      validator: AppValidator.validatePhone,
                       focusNode: _phoneFocus,
                     ),
                     SizedBox(height: 10),
@@ -132,7 +131,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       controller: _passController,
                       isBorder: true,
                       isPassword: true,
-                      validator: Validator.validatePassword,
+                      validator: AppValidator.validatePassword,
                       focusNode: _passFocus,
                     ),
                     SizedBox(height: 40),

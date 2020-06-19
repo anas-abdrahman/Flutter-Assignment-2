@@ -3,7 +3,7 @@ import 'package:assignment_2/bloc/login_bloc.dart';
 import 'package:assignment_2/model/user.dart';
 import 'package:assignment_2/utils/app_dialog.dart';
 import 'package:assignment_2/utils/app_route.dart';
-import 'package:assignment_2/utils/validate.dart';
+import 'package:assignment_2/utils/app_validate.dart';
 import 'package:assignment_2/widget/app_loader.dart';
 import 'package:flutter/material.dart';
 import '../widget/app_icon.dart';
@@ -90,7 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       icon: Icon(Icons.email),
                       controller: _emailController,
                       isBorder: true,
-                      validator: Validator.validateEmail,
+                      validator: AppValidator.validateEmail,
                       focusNode: _emailFocus,
                     ),
                     SizedBox(height: 10),
@@ -100,7 +100,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       controller: _passController,
                       isBorder: true,
                       isPassword: true,
-                      validator: Validator.validatePassword,
+                      validator: AppValidator.validatePassword,
                       focusNode: _passFocus,
                     ),
                     SizedBox(height: 40),
