@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AppTextField extends StatelessWidget {
+  
   final String hintText;
   final Widget icon;
   final TextEditingController controller;
@@ -46,6 +47,7 @@ class AppTextField extends StatelessWidget {
 }
 
 class AppTextFormField extends StatelessWidget {
+
   final String hintText;
   final Widget icon;
   final TextEditingController controller;

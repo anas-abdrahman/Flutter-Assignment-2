@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../style/app_color.dart';
 
 class AppButton extends StatelessWidget {
+  
   final String text;
   final Color color;
   final VoidCallback onPressed;
